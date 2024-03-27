@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Card from "../../components/Card";
 import Link from "next/link";
+import Head from "next/head";
 import Pagination from "../../components/Pagination";
 const QuestionsContainer = styled.div`
   display: flex;
@@ -14,28 +15,33 @@ const CardLink = styled.a`
 `;
 function Questions({ questions, hasMore, page }) {
   return (
-    <QuestionsContainer>
-      <h2>Questions</h2>
+    <>
+      <Head>
+        <title>Questions</title>
+      </Head>
+      <QuestionsContainer>
+        <h2>Questions</h2>
 
-      <div>
-        {questions.map((question) => (
-          <Link
-            key={question.question_id}
-            href={`/questions/${question.question_id}`}
-            passHref
-          >
-            <CardLink>
-              <Card
-                title={question.title}
-                views={question.view_count}
-                answers={question.answer_count}
-              />
-            </CardLink>
-          </Link>
-        ))}
-      </div>
-      <Pagination currentPage={parseInt(page) || 1} hasMore={hasMore} />
-    </QuestionsContainer>
+        <div>
+          {questions.map((question) => (
+            <Link
+              key={question.question_id}
+              href={`/questions/${question.question_id}`}
+              passHref
+            >
+              <CardLink>
+                <Card
+                  title={question.title}
+                  views={question.view_count}
+                  answers={question.answer_count}
+                />
+              </CardLink>
+            </Link>
+          ))}
+        </div>
+        <Pagination currentPage={parseInt(page) || 1} hasMore={hasMore} />
+      </QuestionsContainer>
+    </>
   );
 }
 
